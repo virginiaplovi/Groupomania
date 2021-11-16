@@ -22,22 +22,22 @@ const Post = db.define('post', {
         type: DataTypes.STRING
     },
     Likes: {
-        type: DataTypes.NUMBER
+        type: DataTypes.INTEGER
     },
     Dislikes: {
-        type: DataTypes.NUMBER
+        type: DataTypes.INTEGER
     },
     UsersLiked: {
-        type: DataTypes.NUMBER
+        type: DataTypes.INTEGER
     },
     UsersDisliked: {
-        type: DataTypes.NUMBER
+        type: DataTypes.INTEGER
     },
     ReadPost: {
-        type: DataTypes.NUMBER
+        type: DataTypes.INTEGER
     },
     ReadBy: {
-        type: DataTypes.NUMBER
+        type: DataTypes.INTEGER
     }
 }, {
     freezeTableName: true

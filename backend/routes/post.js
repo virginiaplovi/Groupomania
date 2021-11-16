@@ -8,20 +8,22 @@ import {
     updatePost,
     deletePost
 } from "../controllers/post.js";
+//Import authorization middleware
+import {authToken} from "../middleware/auth.js"
 
 // Init express router
-const router = express.Router();
+const postRouter = express.Router();
 
 // Route get all post
-router.get('/post', getAllPost);
+postRouter.get('/post', authToken, getAllPost);
 // Route get post by id
-router.get('/post/:id', getPostById);
+postRouter.get('/post/:id', authToken, getPostById);
 // Route create a new post
-router.post('/post', createPost);
+postRouter.post('/post', authToken, createPost);
 // Route update post by id
-router.put('/post/:id', updatePost);
+postRouter.put('/post/:id', authToken, updatePost);
 // Route delete post by id
-router.delete('/post/:id', deletePost);
+postRouter.delete('/post/:id', authToken, deletePost);
 
 //export router
-export default router;
+export default postRouter;

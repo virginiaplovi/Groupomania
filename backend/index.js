@@ -5,7 +5,8 @@ import cors from "cors";
 // Import connection MySQL
 import db from "./config/database.js";
 //Import router
-import Router from './routes/post.js';
+import postRouter from './routes/post.js';
+import userRouter from "./routes/user.js";
 //...to add userRoutes...
 
 //Init express
@@ -24,7 +25,8 @@ try {
 }
 
 //use router
-app.use(Router);
+app.use(postRouter);
+app.use(userRouter);
 //..to add userRoutes...
 
 //listen on port
