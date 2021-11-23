@@ -16,7 +16,8 @@ const User = db.define('user', {
         autoIncrement: true
     },
     Email: {
-        type: DataTypes.STRING
+        type: DataTypes.STRING,
+        unique: true
     },
     Password: {
         type: DataTypes.STRING
