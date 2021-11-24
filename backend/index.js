@@ -7,6 +7,7 @@ import db from "./config/database.js";
 //Import router
 import postRouter from './routes/post.js';
 import userRouter from "./routes/user.js";
+import likeRouter from "./routes/like.js";
 //...to add userRoutes...
 
 //Init express
@@ -27,6 +28,8 @@ try {
 //use router
 app.use(postRouter);
 app.use(userRouter);
+app.use(likeRouter);
+
 //..to add userRoutes...
 
 //listen on port

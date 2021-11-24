@@ -3,6 +3,7 @@ import { Sequelize } from "sequelize";
 //import connection
 import db from "../config/database.js";
 
+
 // init DataTypes
 const { DataTypes } = Sequelize;
 
@@ -31,6 +32,8 @@ const User = db.define('user', {
 }, {
     freezeTableName: true
 });
+
+
 
 //Export model Post
 

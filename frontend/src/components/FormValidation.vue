@@ -1,6 +1,6 @@
 <template>
   <!-- First Row -->
-  <form @submit.prevent="handleSubmit">
+  <form @submit.prevent="handleSubmit" autocomplete="off">
     <div class="form-row">
       <div class="col">
         <div class="form-group fadeIn second">
@@ -179,35 +179,49 @@ export default {
       if (this.$v.$invalid) {
         return;
       } else {
-        axios.post("http://localhost:5000/auth/signup", {
-          FirstName: this.firstName,
-          LastName: this.lastName,
-          Email: this.email,
-          Password: this.password,
-        });
-        let timerInterval;
-        Swal.fire({
-          icon: "success",
-          title: "Thank you for joining us!",
-          html: "You will be redirected to the login page in <b></b> seconds.",
-          timer: 5000,
-          timerProgressBar: true,
-          didOpen: () => {
-            Swal.showLoading();
-            timerInterval = setInterval(() => {
-              Swal.getHtmlContainer().querySelector("b").textContent = (
-                Swal.getTimerLeft() / 1000
-              ).toFixed(0);
-            }, 100);
-          },
-          willClose: () => {
-            clearInterval(timerInterval);
-          },
-        }).then((result) => {
-          if (result.dismiss === Swal.DismissReason.timer) {
-            this.$router.push("/");
-          }
-        });
+        axios
+          .post("http://localhost:5000/auth/signup", {
+            FirstName: this.firstName,
+            LastName: this.lastName,
+            Email: this.email,
+            Password: this.password,
+          })
+          .then((data) => {
+            console.log(data);
+            let timerInterval;
+            Swal.fire({
+              icon: "success",
+              title: "Thank you for joining us!",
+              html: "You will be redirected to the login page in <b></b> seconds.",
+              timer: 5000,
+              timerProgressBar: true,
+              didOpen: () => {
+                Swal.showLoading();
+                timerInterval = setInterval(() => {
+                  Swal.getHtmlContainer().querySelector("b").textContent = (
+                    Swal.getTimerLeft() / 1000
+                  ).toFixed(0);
+                }, 100);
+              },
+              willClose: () => {
+                clearInterval(timerInterval);
+              },
+            }).then((result) => {
+              if (result.dismiss === Swal.DismissReason.timer) {
+                this.$router.push("/");
+              }
+            });
+          })
+          .catch((error) => {
+            console.log(error.response.data.error);
+            Swal.fire({
+              icon: "error",
+              title: "This email address is already being used",
+              text: "If it's you, go back and Login. Otherwise, choose another email.",
+              showConfirmButton: false,
+              showCancelButton: true
+            });
+          });
       }
     },
   },

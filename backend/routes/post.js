@@ -8,7 +8,7 @@ import {
     updatePost,
     deletePost
 } from "../controllers/post.js";
-//Import authorization middleware
+//Import middleware
 import {authToken} from "../middleware/auth.js"
 
 // Init express router
