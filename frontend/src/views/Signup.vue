@@ -1,173 +1,29 @@
 <template>
-  <div class="Signup">
-    <div id="nav"></div>
-    <div class="container h-100">
-      <div class="row align-items-center h-100">
-        <div class="col d-flex justify-content-center">
-          <div
-            class="card text-center fadeInDown shadow p-3 mb-5 bg-white rounded border-0"
-          >
-            <div class="card-img-top fadeIn first">
-              <img src="../assets/logo1.png" id="icon" alt="Logo" />
-            </div>
-            <div class="card-body">
-              <!-- Registration form -->
-              <FormValidation></FormValidation>
-            </div>
-            <div class="card-footer text-muted">
-              <div>Already a member?</div>
-              <router-link to="/" class="underlineHover"
-                >Login here!</router-link
-              >
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="Signup">
+        <LoginSignupCard>
+            <template v-slot:form>
+                <!-- Registration form -->
+                <SignupForm></SignupForm>
+            </template>
+            <template v-slot:link>
+                <div>Already a member?</div>
+                <router-link to="/" class="underlineHover">Login here!</router-link>
+            </template>
+        </LoginSignupCard>
     </div>
-  </div>
 </template>
 
 <script>
-import FormValidation from '../components/FormValidation.vue'
-
+import SignupForm from "../components/SignupForm.vue";
+import LoginSignupCard from "../components/LoginSignupCard.vue";
 
 export default {
-  name: 'Signup',
-  components: {
-    FormValidation
-  }
+    name: "Signup",
+    components: {
+        SignupForm,
+        LoginSignupCard,
+    },
 };
 </script>
 
-<style>
-/* Simple CSS3 Fade-in-down Animation */
-.fadeInDown {
-  -webkit-animation-name: fadeInDown;
-  animation-name: fadeInDown;
-  -webkit-animation-duration: 1s;
-  animation-duration: 1s;
-  -webkit-animation-fill-mode: both;
-  animation-fill-mode: both;
-}
-
-@-webkit-keyframes fadeInDown {
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none;
-  }
-}
-
-@keyframes fadeInDown {
-  0% {
-    opacity: 0;
-    -webkit-transform: translate3d(0, -100%, 0);
-    transform: translate3d(0, -100%, 0);
-  }
-  100% {
-    opacity: 1;
-    -webkit-transform: none;
-    transform: none;
-  }
-}
-
-/* Simple CSS3 Fade-in Animation */
-@-webkit-keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@-moz-keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.fadeIn {
-  opacity: 0;
-  -webkit-animation: fadeIn ease-in 1;
-  -moz-animation: fadeIn ease-in 1;
-  animation: fadeIn ease-in 1;
-
-  -webkit-animation-fill-mode: forwards;
-  -moz-animation-fill-mode: forwards;
-  animation-fill-mode: forwards;
-
-  -webkit-animation-duration: 1s;
-  -moz-animation-duration: 1s;
-  animation-duration: 1s;
-}
-
-.fadeIn.first {
-  -webkit-animation-delay: 0.4s;
-  -moz-animation-delay: 0.4s;
-  animation-delay: 0.4s;
-}
-
-.fadeIn.second {
-  -webkit-animation-delay: 0.6s;
-  -moz-animation-delay: 0.6s;
-  animation-delay: 0.6s;
-}
-
-.fadeIn.third {
-  -webkit-animation-delay: 0.8s;
-  -moz-animation-delay: 0.8s;
-  animation-delay: 0.8s;
-}
-
-.fadeIn.fourth {
-  -webkit-animation-delay: 1s;
-  -moz-animation-delay: 1s;
-  animation-delay: 1s;
-}
-
-/* Simple CSS3 Fade-in Animation */
-.underlineHover:after {
-  display: block;
-  left: 0;
-  bottom: -10px;
-  width: 0;
-  height: 2px;
-  background-color: #56baed;
-  content: "";
-  transition: width 0.2s;
-}
-
-.underlineHover:hover {
-  color: #0d0d0d;
-}
-
-.underlineHover:hover:after {
-  width: 100%;
-}
-
-/* OTHERS */
-
-*:focus {
-  outline: none;
-}
-
-#icon {
-  width: 200px;
-}
-</style>
+<style></style>

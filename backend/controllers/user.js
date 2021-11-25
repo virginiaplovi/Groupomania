@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 
 // Import User model
 import User from "../models/user.js"
-import Post from '../models/post.js';
+// import Post from '../models/post.js';
 // Sign up
 
 export const signup = (req, res, next) => {
@@ -68,7 +68,7 @@ export const login = (req, res, next) => {
         (user) => {
             //if the email is not in the database
             if (!user) {
-                return res.status(401).json({
+                return res.status(404).json({
                     error: new Error('User not found!')
                 });
             }
@@ -87,20 +87,22 @@ export const login = (req, res, next) => {
                         { expiresIn: '24h' });
                     res.status(200).json({
                         UserID: user.UserID,
+                        FirstName: user.FirstName,
+                        LastName: user.LastName,
                         token: token
                     });
                 }
             ).catch(
-                (error) => {
-                    res.status(500).json({
-                        error: error
+                () => {
+                    res.status(403).json({
+                        error: "coudn't encrypt"
                     });
                 }
             );
         }
     ).catch(
         (error) => {
-            res.status(500).json({
+            res.status(501).json({
                 error: error
             });
         }
