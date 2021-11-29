@@ -4,7 +4,18 @@
     <router-view/>
   </div>
 </template>
-
+<script>
+export default {
+  watch: {
+      '$route':{
+        handler: (to) => {
+          document.title = to.meta.title || 'Your Website'
+        },
+         immediate: true
+      }
+    },
+}
+</script>
 <style lang="scss">
 body {
   font-family: "Nunito", Helvetica, Arial, sans-serif;
