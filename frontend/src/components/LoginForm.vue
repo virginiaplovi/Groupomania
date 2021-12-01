@@ -55,14 +55,15 @@ export default {
                     })
                     .then((res) => {
                         localStorage.setItem("user", JSON.stringify(res.data));
-                        const user = JSON.parse(localStorage.getItem('user'));
+                        localStorage.setItem('jwt',res.data.token)
+                        const user = JSON.parse(localStorage.getItem("user"));
                         const FullName = user.FirstName + " " + user.LastName;
                         let timerInterval;
                         Swal.fire({
                             icon: "success",
                             title: "Welcome back " + FullName + "!",
                             html: "You will be redirected to the home page in <b></b> seconds.",
-                            timer: 5000,
+                            timer: 3000,
                             timerProgressBar: true,
                             didOpen: () => {
                                 Swal.showLoading();
@@ -73,12 +74,11 @@ export default {
                             willClose: () => {
                                 clearInterval(timerInterval);
                             },
-                        })
-                        // .then((result) => {
-                        //     if (result.dismiss === Swal.DismissReason.timer) {
-                        //         this.$router.push("/");
-                        //     }
-                        // });
+                        }).then((result) => {
+                            if (result.dismiss === Swal.DismissReason.timer) {
+                                this.$router.push({ path: "/home" });
+                            }
+                        });
                     })
                     .catch((error) => {
                         const codeError = error.message.split("code ")[1];

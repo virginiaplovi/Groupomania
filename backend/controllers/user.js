@@ -89,6 +89,8 @@ export const login = (req, res, next) => {
                         UserID: user.UserID,
                         FirstName: user.FirstName,
                         LastName: user.LastName,
+                        Email: user.Email,
+                        CreatedAt: user.CreatedAt,
                         token: token
                     });
                 }
@@ -113,6 +115,42 @@ export const getAllUsers = async (req, res, next) => {
     try {
         const user = await User.findAll();
         res.send(user);
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+export const getOneUser = (req, res, next) => {
+        User.findAll({
+            where: {
+                UserID: req.params.id
+            }
+        }).then((user) => {
+            if (!user) {
+                return res.status(404).json({
+                    error: new Error('User not found!')
+                });
+            }
+            res.send(user[0]);
+        }).catch(
+            (error) => {
+                res.status(404).json({
+                    error: error
+                });
+            }
+        );
+}
+
+export const deleteUser = async (req, res) => {
+    try {
+        await User.destroy({
+            where: {
+                UserID: req.params.id
+            }
+        });
+        res.json({
+            "message": "Account Deleted"
+        });
     } catch (err) {
         console.log(err);
     }

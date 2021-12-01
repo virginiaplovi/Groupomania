@@ -28,7 +28,10 @@ const User = db.define('user', {
     },
     LastName: {
         type: DataTypes.STRING
-    }
+    },
+    CreatedAt: {
+        type: DataTypes.DATE
+    },
 }, {
     freezeTableName: true
 });
