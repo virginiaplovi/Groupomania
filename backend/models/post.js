@@ -22,7 +22,10 @@ const Post = db.define('post', {
     },
     ImageUrl: {
         type: DataTypes.STRING
-    }
+    },
+    CreatedAt: {
+        type: DataTypes.DATE
+    },
 }, {
     freezeTableName: true
 });

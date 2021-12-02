@@ -15,15 +15,15 @@ import {authToken} from "../middleware/auth.js"
 const postRouter = express.Router();
 
 // Route get all post
-postRouter.get('/post', authToken, getAllPost);
+postRouter.get('/post', getAllPost);
 // Route get post by id
 postRouter.get('/post/:id', authToken, getPostById);
 // Route create a new post
-postRouter.post('/post', authToken, createPost);
+postRouter.post('/post', createPost);
 // Route update post by id
 postRouter.put('/post/:id', authToken, updatePost);
 // Route delete post by id
-postRouter.delete('/post/:id', authToken, deletePost);
+postRouter.delete('/post/:id', deletePost);
 
 //export router
 export default postRouter;

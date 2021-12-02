@@ -14,9 +14,6 @@
                         <router-link :to="{ name: 'Profile', params: { id: userID } }" class="nav-link">HELLO, {{ userName }}</router-link>
                     </li>
                     <li class="nav-item">
-                        <router-link to="/home" class="nav-link"><i class="fas fa-user-cog" title="Edit Profile"></i> Edit Profile</router-link>
-                    </li>
-                    <li class="nav-item">
                         <a class="nav-link" @click="signOut" href="#"><i class="fas fa-sign-out-alt" title="Logout"></i> Logout</a>
                     </li>
                 </ul>

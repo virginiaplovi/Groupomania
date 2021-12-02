@@ -7,7 +7,7 @@
                     <span class="name mt-3">{{ firstName }} {{ lastName }}</span>
                     <span class="idd">{{ email }}</span>
 
-                    <div class="d-flex mt-2"><button v-if="paramsID == userID" class="btn1 btn-danger">Edit Profile</button> <button v-if="paramsID == userID" class="btn1 btn-danger" @click="deleteAccount">Delete Profile</button></div>
+                    <div class="d-flex mt-2"><button v-if="paramsID == userID" class="btn1 btn-danger" @click="deleteAccount">Delete Profile</button></div>
                     <div class="px-2 rounded mt-4 date">
                         <span class="join">Joined on {{ createdAt | formatDate }}</span>
                     </div>
@@ -81,7 +81,7 @@ export default {
 </script>
 <style>
 .card {
-    width: 350px;
+    width: 600px;
     background-color: #ffd7d7;
     border: none;
     transition: all 0.5s;
