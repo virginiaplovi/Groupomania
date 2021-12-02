@@ -7,7 +7,7 @@
                     <span class="name mt-3">{{ firstName }} {{ lastName }}</span>
                     <span class="idd">{{ email }}</span>
 
-                    <div class="d-flex mt-2"><button v-if="paramsID == userID" class="btn1 btn-danger" @click="deleteAccount">Delete Profile</button></div>
+                    <div class="d-flex mt-2"><button v-if="paramsID == userID" class="btn btn1 btn-danger p-2" @click="deleteAccount">Delete Profile</button></div>
                     <div class="px-2 rounded mt-4 date">
                         <span class="join">Joined on {{ createdAt | formatDate }}</span>
                     </div>
@@ -125,8 +125,6 @@ export default {
 }
 
 .btn1 {
-    height: 40px;
-    width: 150px;
     border: none;
     background-color: #ed7265;
     color: #ffd7d7;
