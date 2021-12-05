@@ -1,9 +1,9 @@
 <template>
     <div class="post">
         <div class="container my-2 p-3 d-flex justify-content-center" v-for="post in posts" :key="post.PostID">
-            <div class="row">
-                <div class="col">
-                    <div class="bg-white card">
+            <div class="card1">
+                
+                    <div class="bg-white ">
                         <div class="d-flex flex-row user p-2">
                             <img class="rounded-circle" src="logo2.png" width="50" />
                             <div class="d-flex flex-column ml-2">
@@ -23,7 +23,7 @@
                             <div class="d-flex align-items-center border-left px-3 likes"><i class="far fa-thumbs-up"></i><span class="ml-2">6</span></div>
                         </div>
                     </div>
-                </div>
+                
             </div>
         </div>
     </div>

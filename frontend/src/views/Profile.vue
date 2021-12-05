@@ -1,7 +1,7 @@
 <template>
     <div class="profile">
         <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
-            <div class="card p-4">
+            <div class="card1 p-4">
                 <div class="image d-flex flex-column justify-content-center align-items-center">
                     <button class="btn btn0 btn-danger"><img src="logo2.png" height="100" width="100" /></button>
                     <span class="name mt-3">{{ firstName }} {{ lastName }}</span>
@@ -80,8 +80,8 @@ export default {
 };
 </script>
 <style>
-.card {
-    width: 600px;
+.card1 {
+    width: 60%;
     background-color: #ffd7d7;
     border: none;
     transition: all 0.5s;

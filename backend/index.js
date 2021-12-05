@@ -2,6 +2,8 @@
 import express from "express";
 //Import cors
 import cors from "cors";
+import path from 'path';
+const __dirname = path.resolve();
 // Import connection MySQL
 import db from "./config/database.js";
 //Import router
@@ -25,12 +27,11 @@ try {
     console.error('Unable to connect to the database', error);
 }
 
+app.use('/images', express.static(path.join(__dirname, 'images')));
 //use router
 app.use(postRouter);
 app.use(userRouter);
 app.use(likeRouter);
-
-//..to add userRoutes...
 
 //listen on port
 app.listen(5000, () => console.log('Server running at http://localhost:5000'));

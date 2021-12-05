@@ -1,6 +1,7 @@
 //Import Post Model
-import Post from "../models/post.js"
+import Post from "../models/post.js";
 import User from "../models/user.js";
+import fs from 'fs'
 
 //Get all posts
 export const getAllPost = async (req, res) => {
@@ -33,7 +34,17 @@ export const getPostById = async (req, res) => {
 //Create a new post
 export const createPost = async (req, res) => {
     try {
-        await Post.create(req.body);
+        let image = null;
+        if (req.file) {
+            image = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+        }
+        await Post.create({
+            PostID: req.body.PostID,
+            UserID: req.body.UserID,
+            Message: req.body.Message,
+            ImageUrl: image,
+            CreatedAt: req.body.CreatedAt
+        });
         res.json({
             "message": "Post Created"
         });
@@ -42,10 +53,16 @@ export const createPost = async (req, res) => {
     }
 }
 
+
 //Update post by id
-export const updatePost = async (req, res) => {
+export const updatePost = (req, res) => {
     try {
-        await Post.update(req.body, {
+        const messageObject = req.file ?
+            {
+                ...req.body.Message,
+                ImageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+            } : { ...req.body }
+        Post.update({ ...messageObject, id: req.params.id }, {
             where: {
                 PostID: req.params.id
             }
@@ -59,17 +76,46 @@ export const updatePost = async (req, res) => {
 }
 
 //Delete post by id
-export const deletePost = async (req, res) => {
-    try {
-        await Post.destroy({
+export const deletePost = (req, res) => {
+    const post = Post.findOne({
+        where: {
+            PostID: req.params.id
+        }
+    }).then((post) => {
+        if (req.file) {
+            const filename = post.ImageUrl.split('/images/')[1];
+            fs.unlink('images/' + filename, () => {
+                Post.destroy({
+                    where: {
+                        PostID: req.params.id
+                    }
+                }).then(
+                    () => {
+                        res.json({
+                            "message": "Post Deleted"
+                        });
+                    }
+                ).catch((err) => {
+                    console.log(err);
+                })
+            })
+        }
+        Post.destroy({
             where: {
                 PostID: req.params.id
             }
-        });
-        res.json({
-            "message": "Post Deleted"
-        });
-    } catch (err) {
-        console.log(err);
-    }
+        }).then(
+            () => {
+                res.json({
+                    "message": "Post Deleted"
+                });
+            }
+        ).catch((err) => {
+            console.log(err);
+        })
+    }).catch((err) => {
+        console.log(err)
+    })
+
+
 }
