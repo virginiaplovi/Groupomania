@@ -55,21 +55,18 @@ export const createPost = async (req, res) => {
 
 
 //Update post by id
-export const updatePost = (req, res) => {
+export const updatePost = async (req, res) => {
     try {
-        const messageObject = req.file ?
-            {
-                ...req.body.Message,
-                ImageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
-            } : { ...req.body }
-        Post.update({ ...messageObject, id: req.params.id }, {
-            where: {
-                PostID: req.params.id
-            }
-        });
-        res.json({
-            "message": "Post Updated"
-        });
+        let image = req.body.ImageUrl;
+        if (req.file) {
+            image = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+        }
+        await Post.update({
+            Message: req.body.Message,
+            ImageUrl: image,
+        }, { where: { PostID: req.params.id } }
+        );
+        res.json({ "message": "Post updated successfully!" })
     } catch (err) {
         console.log(err);
     }
@@ -82,36 +79,22 @@ export const deletePost = (req, res) => {
             PostID: req.params.id
         }
     }).then((post) => {
-        if (req.file) {
-            const filename = post.ImageUrl.split('/images/')[1];
-            fs.unlink('images/' + filename, () => {
-                Post.destroy({
-                    where: {
-                        PostID: req.params.id
-                    }
-                }).then(
-                    () => {
-                        res.json({
-                            "message": "Post Deleted"
-                        });
-                    }
-                ).catch((err) => {
-                    console.log(err);
-                })
+
+        const filename = post.ImageUrl.split('/images/')[1];
+        fs.unlink('images/' + filename, () => {
+            Post.destroy({
+                where: {
+                    PostID: req.params.id
+                }
+            }).then(
+                () => {
+                    res.json({
+                        "message": "Post Deleted"
+                    });
+                }
+            ).catch((err) => {
+                console.log(err);
             })
-        }
-        Post.destroy({
-            where: {
-                PostID: req.params.id
-            }
-        }).then(
-            () => {
-                res.json({
-                    "message": "Post Deleted"
-                });
-            }
-        ).catch((err) => {
-            console.log(err);
         })
     }).catch((err) => {
         console.log(err)

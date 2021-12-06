@@ -23,7 +23,8 @@ const routes = [
     component: Signup,
     meta: {
       requiresAuth: false,
-      title: 'Groupomania | Signup'}
+      title: 'Groupomania | Signup'
+    }
   },
   {
     path: '/home',
@@ -33,19 +34,18 @@ const routes = [
       requiresAuth: true,
       title: 'Groupomania | Home'
     },
-    children: [
-      {
-        path: '/profile/:id',
-        name: 'Profile',
-        components: {
-          a: Profile},
-        meta: {
-          requiresAuth: true,
-          title: 'Groupomania | Profile'
-        }
-      },
-    ]
   },
+  {
+    path: '/profile/:id',
+    name: 'Profile',
+    component: Profile,
+    meta: {
+      requiresAuth: true,
+      title: 'Groupomania | Profile'
+    }
+  },
+
+
 ]
 
 const router = new VueRouter({
@@ -61,12 +61,12 @@ router.beforeEach((to, from, next) => {
         params: { nextUrl: to.fullPath }
       })
     } else {
+      next()
+    }
+  }
+  else {
     next()
   }
-}
-else {
-  next()
-}
 })
 
 export default router

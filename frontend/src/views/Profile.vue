@@ -1,5 +1,6 @@
 <template>
     <div class="profile">
+        <NavBar></NavBar>
         <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
             <div class="card1 p-4">
                 <div class="image d-flex flex-column justify-content-center align-items-center">
@@ -19,10 +20,13 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
+import NavBar from '../components/NavBar.vue'
 
 export default {
     name: "Profile",
-    components: {},
+    components: {
+        NavBar
+    },
     data() {
         return {
             firstName: "",

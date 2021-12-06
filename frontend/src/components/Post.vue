@@ -12,7 +12,9 @@
                             </div>
                         </div>
                         <div class="mt-2 p-2">
-                            <!-- <img src="https://i.imgur.com/xhzhaGA.jpg" class="img-fluid" /> -->
+                            <div v-if="post.ImageUrl">
+                                <img :src="post.ImageUrl" class="img-fluid" />
+                            </div>
                             <p class="post-content">{{ post.Message }}</p>
                         </div>
                         <div class="d-flex justify-content-between p-3 border-top">
