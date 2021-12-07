@@ -1,5 +1,5 @@
 <template>
-    <div class="home">
+    <div class="login">
         <LoginSignupCard>
             <template v-slot:form>
                 <LoginForm></LoginForm>
@@ -17,7 +17,7 @@ import LoginForm from "../components/LoginForm.vue";
 import LoginSignupCard from "../components/LoginSignupCard.vue";
 
 export default {
-    name: "Hpme",
+    name: "Login",
     components: {
         LoginForm,
         LoginSignupCard,

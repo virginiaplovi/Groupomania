@@ -1,8 +1,8 @@
 <template>
     <div class="profile">
         <NavBar></NavBar>
-        <div class="container mt-4 mb-4 p-3 d-flex justify-content-center">
-            <div class="card1 p-4">
+        <div class="container mt-5 d-flex justify-content-center">
+            <div class="card1 mt-5 p-4">
                 <div class="image d-flex flex-column justify-content-center align-items-center">
                     <button class="btn btn0 btn-danger"><img src="logo2.png" height="100" width="100" /></button>
                     <span class="name mt-3">{{ firstName }} {{ lastName }}</span>
@@ -85,7 +85,8 @@ export default {
 </script>
 <style>
 .card1 {
-    width: 60%;
+    width: 500px;
+    border-radius: 10px;
     background-color: #ffd7d7;
     border: none;
     transition: all 0.5s;
@@ -95,7 +96,7 @@ export default {
     transition: all 0.5s;
 }
 
-.card:hover .image img {
+.card1:hover .image img {
     transform: scale(1.5);
 }
 

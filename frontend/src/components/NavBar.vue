@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav class="navbar navbar-expand-md">
+        <nav class="navbar navbar-expand-md fixed-top">
             <router-link to="/home" class="navbar-brand"><img src="logo2.png" alt="Groupomania Logo" style="max-width: 25px" /></router-link>
             <button class="navbar-toggler navbar-dark" type="button" data-toggle="collapse" data-target="#main-navigation">
                 <span class="navbar-toggler-icon"></span>

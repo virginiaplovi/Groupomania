@@ -4,6 +4,7 @@ import Login from '../views/Login.vue'
 import Signup from '../views/Signup.vue'
 import Home from '../views/Home.vue'
 import Profile from '../views/Profile.vue'
+import OnePost from '../views/OnePost.vue'
 
 Vue.use(VueRouter)
 
@@ -13,6 +14,7 @@ const routes = [
     name: 'Login',
     component: Login,
     meta: {
+      isLog: true,
       requiresAuth: false,
       title: 'Groupomania | Login'
     }
@@ -22,6 +24,7 @@ const routes = [
     name: 'Register',
     component: Signup,
     meta: {
+      isLog: true,
       requiresAuth: false,
       title: 'Groupomania | Signup'
     }
@@ -44,7 +47,15 @@ const routes = [
       title: 'Groupomania | Profile'
     }
   },
-
+  {
+    path: '/post/:id',
+    name: 'OnePost',
+    component: OnePost,
+    meta: {
+      requiresAuth: true,
+      title: 'Groupomania | Post'
+    }
+  },
 
 ]
 
@@ -58,6 +69,22 @@ router.beforeEach((to, from, next) => {
     if (localStorage.getItem('jwt') == null) {
       next({
         path: '/',
+        params: { nextUrl: to.fullPath }
+      })
+    } else {
+      next()
+    }
+  }
+  else {
+    next()
+  }
+})
+
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.isLog)) {
+    if (localStorage.getItem('jwt')) {
+      next({
+        path: '/home',
         params: { nextUrl: to.fullPath }
       })
     } else {

@@ -1,6 +1,7 @@
 <template>
-    <div class="post">
-        <div class="container my-2 p-3 d-flex justify-content-center" v-for="post in posts" :key="post.PostID">
+    <div class="OnePost">
+        <NavBar></NavBar>
+        <div class="container my-5 p-3 d-flex justify-content-center">
             <div class="card card2 border-0">
                 <div class="bg-white">
                     <div class="d-flex flex-row user p-2">
@@ -10,14 +11,13 @@
                             ><span>{{ post.CreatedAt | formatDate }}</span>
                         </div>
                     </div>
-                    <router-link :to="{ name: 'OnePost', params: { id: post.PostID } }" class="text-decoration-none text-muted">
-                        <div class="mt-2 p-2">
-                            <p class="post-content mb-2">{{ post.Message }}</p>
-                            <div v-if="post.ImageUrl">
-                                <img :src="post.ImageUrl" class="img-fluid" />
-                            </div>
+
+                    <div class="mt-2 p-2">
+                        <p class="post-content mb-2">{{ post.Message }}</p>
+                        <div v-if="post.ImageUrl">
+                            <img :src="post.ImageUrl" class="img-fluid" />
                         </div>
-                    </router-link>
+                    </div>
                     <div class="d-flex justify-content-between p-3 border-top">
                         <div class="btn-group" role="group">
                             <button v-if="post.user.UserID == userID" class="btn btn1 btn-danger p-2">Edit</button>
@@ -30,23 +30,25 @@
         </div>
     </div>
 </template>
-
 <script>
-import axios from "axios";
-
+import axios from 'axios';
+import NavBar from "../components/NavBar.vue";
 export default {
-    name: "Post",
+    name: "OnePost",
+    components: {
+        NavBar,
+    },
     data() {
         return {
-            posts: [],
+            post: [],
             userID: "",
         };
     },
     methods: {
-        async getAllPost() {
+        async getOnePost() {
             try {
-                const response = await axios.get(`http://localhost:5000/post`);
-                this.posts = response.data;
+                const response = await axios.get(`http://localhost:5000/post/${this.$route.params.id}`);
+                this.post = response.data;
             } catch (err) {
                 console.log(err);
             }
@@ -54,30 +56,17 @@ export default {
         async deletePost(id) {
             try {
                 await axios.delete(`http://localhost:5000/post/${id}`);
-                this.getAllPost();
+                this.$router.push("/home");
             } catch (err) {
                 console.log(err);
             }
-        },
+        }
     },
     created() {
         const user = JSON.parse(localStorage.getItem("user"));
         this.userID = user.UserID;
-        this.getAllPost();
+        this.getOnePost();
     },
 };
 </script>
-<style>
-.name {
-    font-size: 20px;
-    color: #ed7265;
-}
-
-.post-content {
-    font-size: 14px;
-}
-
-.likes {
-    color: #ed7265;
-}
-</style>
+<style></style>

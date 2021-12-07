@@ -23,7 +23,8 @@ export const getPostById = async (req, res) => {
         const post = await Post.findAll({
             where: {
                 PostID: req.params.id
-            }
+            },
+            include: [User]
         });
         res.send(post[0]);
     } catch (err) {
@@ -79,9 +80,24 @@ export const deletePost = (req, res) => {
             PostID: req.params.id
         }
     }).then((post) => {
-
-        const filename = post.ImageUrl.split('/images/')[1];
-        fs.unlink('images/' + filename, () => {
+        if (req.file) {
+            const filename = post.ImageUrl.split('/images/')[1];
+            fs.unlink('images/' + filename, () => {
+                Post.destroy({
+                    where: {
+                        PostID: req.params.id
+                    }
+                }).then(
+                    () => {
+                        res.json({
+                            "message": "Post Deleted"
+                        });
+                    }
+                ).catch((err) => {
+                    console.log(err);
+                })
+            })
+        } else {
             Post.destroy({
                 where: {
                     PostID: req.params.id
@@ -95,7 +111,8 @@ export const deletePost = (req, res) => {
             ).catch((err) => {
                 console.log(err);
             })
-        })
+        }
+
     }).catch((err) => {
         console.log(err)
     })
