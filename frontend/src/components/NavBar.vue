@@ -66,7 +66,7 @@ export default {
 </script>
 <style>
 .navbar {
-    background: #ed7265;
+    background: #fd2b01b8;
     box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.145);
 }
 .nav-link,

@@ -4,11 +4,11 @@
         <div class="container mt-5 d-flex justify-content-center">
             <div class="card1 mt-5 p-4">
                 <div class="image d-flex flex-column justify-content-center align-items-center">
-                    <button class="btn btn0 btn-danger"><img src="logo2.png" height="100" width="100" /></button>
+                    <button class="btn btn0 btn-post p-0"><img src="logo2.png" height="100" width="100" /></button>
                     <span class="name mt-3">{{ firstName }} {{ lastName }}</span>
                     <span class="idd">{{ email }}</span>
 
-                    <div class="d-flex mt-2"><button v-if="paramsID == userID" class="btn btn1 btn-danger p-2" @click="deleteAccount">Delete Profile</button></div>
+                    <div class="d-flex mt-2"><button v-if="paramsID == userID" class="btn btn-post" @click="deleteAccount">Delete Profile</button></div>
                     <div class="px-2 rounded mt-4 date">
                         <span class="join">Joined on {{ createdAt | formatDate }}</span>
                     </div>
@@ -87,7 +87,7 @@ export default {
 .card1 {
     width: 500px;
     border-radius: 10px;
-    background-color: #ffd7d7;
+    background-color: #ffd7d767;
     border: none;
     transition: all 0.5s;
 }
@@ -127,13 +127,6 @@ export default {
     font-size: 12px;
     font-weight: 500;
     color: #444444;
-}
-
-.btn1 {
-    border: none;
-    background-color: #ed7265;
-    color: #ffd7d7;
-    font-size: 15px;
 }
 
 .join {

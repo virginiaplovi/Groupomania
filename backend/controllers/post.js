@@ -59,8 +59,10 @@ export const createPost = async (req, res) => {
 export const updatePost = async (req, res) => {
     try {
         let image = req.body.ImageUrl;
+        let Message = req.body.Message;
         if (req.file) {
             image = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`
+            Message = req.body.Message;
         }
         await Post.update({
             Message: req.body.Message,

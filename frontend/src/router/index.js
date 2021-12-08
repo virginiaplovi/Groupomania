@@ -5,6 +5,7 @@ import Signup from '../views/Signup.vue'
 import Home from '../views/Home.vue'
 import Profile from '../views/Profile.vue'
 import OnePost from '../views/OnePost.vue'
+import EditPost from '../views/EditPost.vue'
 
 Vue.use(VueRouter)
 
@@ -55,6 +56,15 @@ const routes = [
       requiresAuth: true,
       title: 'Groupomania | Post'
     }
+  },
+  {
+    path: '/edit/:id',
+    name: 'EditPost',
+    component: EditPost,
+    meta: {
+      requiresAuth: true,
+      title: 'Groupomania | Edit your Post'
+    },
   },
 
 ]

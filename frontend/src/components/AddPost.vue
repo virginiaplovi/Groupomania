@@ -13,7 +13,7 @@
                 </div>
                 <div class="row px-3 form-group">
                     <div class="justify-content-center"><input @change="onFileChange()" type="file" ref="file" name="image" class="form-control-file" id="File" accept=".jpg, .jpeg, .gif, .png" /></div>
-                    <button type="submit" @click.prevent="addPost()" class="btn btn-danger btn-post ml-auto">Post</button>
+                    <button type="submit" @click.prevent="addPost()" class="btn btn-post ml-auto">Post</button>
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@ export default {
         this.userID = user.UserID;
         this.firstName = user.FirstName;
         this.lastName = user.LastName;
-        this. placeholder = 'Hi ' + this.firstName + ', what is on your mind today?';
+        this.placeholder = 'Hi ' + this.firstName + ', what is on your mind today?';
     },
 };
 </script>
@@ -83,8 +83,8 @@ export default {
 }
 
 .profile-pic {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
     object-fit: contain;
 }
@@ -105,7 +105,7 @@ textarea:focus {
     -moz-box-shadow: none !important;
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
-    border: 1px solid #f6cfcf !important;
+    border: 1px solid #fd2b0162 !important;
     outline-width: 0 !important;
 }
 
@@ -124,6 +124,12 @@ textarea:focus {
 .btn-post {
     border-radius: 50px;
     padding: 4px 40px;
+    background-color: #fd2b01b8;
+    color: #FECABF;
+}
+.btn-post:hover {
+    background-color: #fd2b01ce;
+    color: white;
 }
 
 .options {
