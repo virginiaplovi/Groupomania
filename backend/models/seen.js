@@ -11,9 +11,9 @@ const { DataTypes } = Sequelize;
 
 // Define schema
 
-const Like = db.define('like', {
+const Seen = db.define('seen', {
     // Define attributes
-    LikeID: {
+    SeenID: {
         type: DataTypes.INTEGER,
         primaryKey: true,
         autoIncrement: true
@@ -22,11 +22,11 @@ const Like = db.define('like', {
     freezeTableName: true
 });
 
-User.hasMany(Like, { foreignKey: 'UserID' });
-Like.belongsTo(User, { foreignKey: 'UserID'});
+User.hasMany(Seen, { foreignKey: 'UserID' });
+Seen.belongsTo(User, { foreignKey: 'UserID'});
 
-Post.hasMany(Like, { foreignKey: 'PostID'});
-Like.belongsTo(Post, { foreignKey: 'PostID'});
+Post.hasMany(Seen, { foreignKey: 'PostID'});
+Seen.belongsTo(Post, { foreignKey: 'PostID'});
 //Export model Post
 
-export default Like;
+export default Seen;

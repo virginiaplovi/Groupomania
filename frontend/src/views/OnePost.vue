@@ -23,7 +23,7 @@
                             <router-link :to="{ name: 'EditPost', params: { id: post.PostID } }" class="btn btn-post p-2" v-if="post.user.UserID == userID">Edit</router-link>
                             <button v-if="post.user.UserID == userID" class="btn btn-post p-2" @click="deletePost(post.PostID)">Delete</button>
                         </div>
-                        <div class="d-flex align-items-center border-left px-3 likes"><i class="far fa-thumbs-up"></i><span class="ml-2">6</span></div>
+                        <div class="d-flex align-items-center border-left px-3 likes"><span class="ml-2"><i class="fas fa-eye"></i> <input type="checkbox" @click="task(event)"/> <span>Mark as read</span></span></div>
                     </div>
                 </div>
             </div>

@@ -9,7 +9,7 @@ import db from "./config/database.js";
 //Import router
 import postRouter from './routes/post.js';
 import userRouter from "./routes/user.js";
-import likeRouter from "./routes/like.js";
+import seenRouter from "./routes/seen.js";
 //...to add userRoutes...
 
 //Init express
@@ -31,7 +31,7 @@ app.use('/images', express.static(path.join(__dirname, 'images')));
 //use router
 app.use(postRouter);
 app.use(userRouter);
-app.use(likeRouter);
+app.use(seenRouter);
 
 //listen on port
 app.listen(5000, () => console.log('Server running at http://localhost:5000'));
