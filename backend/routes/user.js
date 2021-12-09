@@ -20,6 +20,6 @@ userRouter.post('/auth/login', login);
 userRouter.get('/auth', getAllUsers);
 userRouter.get('/auth/:id', getOneUser);
 userRouter.delete('/auth/:id', deleteUser);
-// userRouter.get('/auth/post', getAllUsersPost);   TEST
+
 
 export default userRouter;

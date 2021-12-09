@@ -4,7 +4,9 @@
     </div>
 </template>
 <script>
+
 export default {
+    
     watch: {
         $route: {
             handler: (to) => {
@@ -13,6 +15,7 @@ export default {
             immediate: true,
         },
     },
+    
 };
 </script>
 <style lang="scss">

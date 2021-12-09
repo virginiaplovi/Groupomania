@@ -20,12 +20,12 @@
 <script>
 import axios from "axios";
 import Swal from "sweetalert2";
-import NavBar from '../components/NavBar.vue'
+import NavBar from "../components/NavBar.vue";
 
 export default {
     name: "Profile",
     components: {
-        NavBar
+        NavBar,
     },
     data() {
         return {
@@ -41,7 +41,7 @@ export default {
         // Get Product By Id
         async getUserById() {
             try {
-                const response = await axios.get(`http://localhost:5000/auth/${this.$route.params.id}`);
+                const response = await axios.get(`http://localhost:5000/auth/${this.$route.params.id}`, { headers: { Authorization: "Bearer " + localStorage.getItem("jwt") } });
                 this.firstName = response.data.FirstName;
                 this.lastName = response.data.LastName;
                 this.email = response.data.Email;
@@ -61,13 +61,12 @@ export default {
                 confirmButtonText: "Yes, delete it!",
             }).then((result) => {
                 if (result.isConfirmed) {
-                    axios.delete(`http://localhost:5000/auth/${this.$route.params.id}`).then((response) => {
+                    axios.delete(`http://localhost:5000/auth/${this.$route.params.id}`, { headers: { Authorization: "Bearer " + localStorage.getItem("jwt") } }).then((response) => {
                         console.log(response);
                         localStorage.clear();
                         Swal.fire("Deleted!", "Your account has been deleted.", "success");
                         this.$router.push("/");
                     });
-                    
                 }
             });
         },

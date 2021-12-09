@@ -16,15 +16,15 @@ import multer from "../middleware/multer-config.js"
 const postRouter = express.Router();
 
 // Route get all post
-postRouter.get('/post', getAllPost);
+postRouter.get('/post', authToken, getAllPost);
 // Route get post by id
-postRouter.get('/post/:id', getPostById);
+postRouter.get('/post/:id', authToken, getPostById);
 // Route create a new post
-postRouter.post('/post', multer, createPost);
+postRouter.post('/post', authToken, multer, createPost);
 // Route update post by id
-postRouter.put('/post/:id', multer, updatePost);
+postRouter.put('/post/:id',authToken, multer, updatePost);
 // Route delete post by id
-postRouter.delete('/post/:id', deletePost);
+postRouter.delete('/post/:id', authToken, deletePost);
 
 //export router
 export default postRouter;

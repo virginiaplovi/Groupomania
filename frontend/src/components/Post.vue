@@ -23,7 +23,9 @@
                             <router-link :to="{ name: 'EditPost', params: { id: post.PostID } }" class="btn btn-post" v-if="post.user.UserID == userID">Edit</router-link>
                             <button v-if="post.user.UserID == userID" class="btn btn-post" @click="deletePost(post.PostID)">Delete</button>
                         </div>
-                        <div class="d-flex align-items-center border-left px-3 likes"><span class="ml-2"><i class="fas fa-eye"></i> <input type="checkbox" onclick="task(event);"/> Mark as read</span></div>
+                        <div class="d-flex align-items-center border-left px-3 likes">
+                            <span class="ml-2"><i class="fas fa-eye"></i> <input type="checkbox" :value="post.PostID" @change="markRead(post.PostID,$event)" /> Mark as read</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -38,6 +40,7 @@
 
 <script>
 import axios from "axios";
+import Swal from 'sweetalert2';
 
 export default {
     name: "Post",
@@ -47,6 +50,7 @@ export default {
             userID: "",
             scTimer: 0,
             scY: 0,
+            seenPost: []
         };
     },
     mounted() {
@@ -55,7 +59,7 @@ export default {
     methods: {
         async getAllPost() {
             try {
-                const response = await axios.get(`http://localhost:5000/post`);
+                const response = await axios.get(`http://localhost:5000/post`, { headers: { Authorization: "Bearer " + localStorage.getItem("jwt") } });
                 this.posts = response.data;
             } catch (err) {
                 console.log(err);
@@ -63,7 +67,7 @@ export default {
         },
         async deletePost(id) {
             try {
-                await axios.delete(`http://localhost:5000/post/${id}`);
+                await axios.delete(`http://localhost:5000/post/${id}`, { headers: { Authorization: "Bearer " + localStorage.getItem("jwt") } });
                 this.getAllPost();
             } catch (err) {
                 console.log(err);
@@ -83,11 +87,51 @@ export default {
                 behavior: "smooth",
             });
         },
+
+        markRead(id, event) {
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 1500,
+                timerProgressBar: true,
+                
+            });
+            if (event.target.checked) {
+                axios.post("http://localhost:5000/seen", {
+                    UserID: this.userID,
+                    PostID: id
+                }, { headers: { "Authorization":"Bearer " + localStorage.getItem("jwt") }}).then(() => {
+                
+                Toast.fire({
+                    text: "Marked as read!",
+                    icon: "success",
+                    willClose: () => {
+                        location.reload();
+                    },
+                });
+            }).catch((error) => {console.log(error)})
+                console.log("do post request with 1 in parameter");
+            } else {
+                ///do delete request
+                console.log("do post request with 0 parameter");
+            }
+        },
+        async checkRead() {
+            try {
+                const response = await axios.get(`http://localhost:5000/seen/auth/${this.userID}`, { headers: { Authorization: "Bearer " + localStorage.getItem("jwt") } });
+                this.seenPost = response.data.seens;
+                console.log(this.seenPost)
+            } catch (err) {
+                console.log(err);
+            }
+        },
     },
     created() {
         const user = JSON.parse(localStorage.getItem("user"));
         this.userID = user.UserID;
         this.getAllPost();
+        this.checkRead()
     },
 };
 </script>
@@ -97,7 +141,7 @@ export default {
 }
 
 .likes {
-    color: #fd2b01b8;;
+    color: #fd2b01b8;
 }
 #pagetop {
     position: fixed;
@@ -108,5 +152,4 @@ export default {
 .fa-angle-double-up {
     color: #fd2b01b8;
 }
-
 </style>

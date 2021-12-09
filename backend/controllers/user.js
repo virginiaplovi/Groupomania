@@ -156,15 +156,3 @@ export const deleteUser = async (req, res) => {
     }
 }
 
-//Test relation between User and Post
-
-// export const getAllUsersPost = async (req, res, next) => {
-//     try {
-//         const user = await User.findAll({
-//             include: [Post]
-//         });
-//         res.send(user);
-//     } catch (err) {
-//         console.log(err);
-//     }
-// }

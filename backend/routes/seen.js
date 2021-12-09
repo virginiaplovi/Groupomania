@@ -3,6 +3,7 @@ import express from "express";
 //Import Post Controller
 import {
     markRead,
+    getAllUserSeen,
     markUnread,
 } from "../controllers/seen.js";
 //Import middleware
@@ -12,8 +13,9 @@ authToken
 // Init express router
 const seenRouter = express.Router();
 
-seenRouter.post('/like', authToken, markRead);
-seenRouter.delete('/like/:id', authToken, markUnread);
+seenRouter.post('/seen', authToken, markRead);
+seenRouter.get('/seen/auth/:id', getAllUserSeen);
+seenRouter.delete('/seen/:id', authToken, markUnread);
 
 
 export default seenRouter;

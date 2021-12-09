@@ -54,7 +54,7 @@ export default {
             formData.set("image", this.file);
             formData.set("UserID", this.userID.toString());
             formData.set("Message", this.message.toString());
-            axios.post("http://localhost:5000/post", formData).then(() => {
+            axios.post("http://localhost:5000/post", formData, { headers: { "Authorization":"Bearer " + localStorage.getItem("jwt") }}).then(() => {
                 Toast.fire({
                     text: "Post created successfully!",
                     icon: "success",
@@ -123,7 +123,7 @@ textarea:focus {
 
 .btn-post {
     border-radius: 50px;
-    padding: 4px 40px;
+    padding: 4px 10px;
     background-color: #fd2b01b8;
     color: #FECABF;
 }

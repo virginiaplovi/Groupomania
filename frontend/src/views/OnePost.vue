@@ -47,7 +47,7 @@ export default {
     methods: {
         async getOnePost() {
             try {
-                const response = await axios.get(`http://localhost:5000/post/${this.$route.params.id}`);
+                const response = await axios.get(`http://localhost:5000/post/${this.$route.params.id}`, { headers: { "Authorization":"Bearer " + localStorage.getItem("jwt") }});
                 this.post = response.data;
             } catch (err) {
                 console.log(err);
@@ -55,7 +55,7 @@ export default {
         },
         async deletePost(id) {
             try {
-                await axios.delete(`http://localhost:5000/post/${id}`);
+                await axios.delete(`http://localhost:5000/post/${id}`, { headers: { "Authorization":"Bearer " + localStorage.getItem("jwt") }});
                 this.$router.push("/home");
             } catch (err) {
                 console.log(err);
