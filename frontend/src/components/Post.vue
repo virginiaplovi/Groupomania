@@ -24,11 +24,15 @@
                             <button v-if="post.user.UserID == userID" class="btn btn-post" @click="deletePost(post.PostID)">Delete</button>
                         </div>
                         <div class="d-flex align-items-center border-left px-3 likes">
-                            <span class="ml-2"><i class="fas fa-eye"></i> <input type="checkbox" :value="post.PostID" @change="markRead(post.PostID,$event)" /> Mark as read</span>
+                            <span class="ml-2"><i class="fas fa-eye"></i> <input type="checkbox" :value="post.PostID" @change="markRead(post.PostID, $event)" /> Mark as read</span>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <div v-if="noPost" class="text-center mt-5">
+            <p class="h2">Sorry, there are no post to show...</p>
+            <p class="h3">Be the first by adding a new post!</p>
         </div>
         <transition name="fade">
             <div id="pagetop" class="" v-show="scY > 300" @click="toTop">
@@ -40,7 +44,7 @@
 
 <script>
 import axios from "axios";
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
 export default {
     name: "Post",
@@ -50,7 +54,8 @@ export default {
             userID: "",
             scTimer: 0,
             scY: 0,
-            seenPost: []
+            noPost: false,
+            seenPost: [],
         };
     },
     mounted() {
@@ -60,7 +65,13 @@ export default {
         async getAllPost() {
             try {
                 const response = await axios.get(`http://localhost:5000/post`, { headers: { Authorization: "Bearer " + localStorage.getItem("jwt") } });
-                this.posts = response.data;
+                const allPost = response.data;
+                if (allPost.length === 0) {
+                    this.noPost = true;
+                } else {
+                    this.noPost = false;
+                    this.posts = allPost;
+                }
             } catch (err) {
                 console.log(err);
             }
@@ -69,6 +80,7 @@ export default {
             try {
                 await axios.delete(`http://localhost:5000/post/${id}`, { headers: { Authorization: "Bearer " + localStorage.getItem("jwt") } });
                 this.getAllPost();
+                location.reload();
             } catch (err) {
                 console.log(err);
             }
@@ -95,22 +107,29 @@ export default {
                 showConfirmButton: false,
                 timer: 1500,
                 timerProgressBar: true,
-                
             });
             if (event.target.checked) {
-                axios.post("http://localhost:5000/seen", {
-                    UserID: this.userID,
-                    PostID: id
-                }, { headers: { "Authorization":"Bearer " + localStorage.getItem("jwt") }}).then(() => {
-                
-                Toast.fire({
-                    text: "Marked as read!",
-                    icon: "success",
-                    willClose: () => {
-                        location.reload();
-                    },
-                });
-            }).catch((error) => {console.log(error)})
+                axios
+                    .post(
+                        "http://localhost:5000/seen",
+                        {
+                            UserID: this.userID,
+                            PostID: id,
+                        },
+                        { headers: { Authorization: "Bearer " + localStorage.getItem("jwt") } }
+                    )
+                    .then(() => {
+                        Toast.fire({
+                            text: "Marked as read!",
+                            icon: "success",
+                            willClose: () => {
+                                location.reload();
+                            },
+                        });
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
                 console.log("do post request with 1 in parameter");
             } else {
                 ///do delete request
@@ -121,7 +140,7 @@ export default {
             try {
                 const response = await axios.get(`http://localhost:5000/seen/auth/${this.userID}`, { headers: { Authorization: "Bearer " + localStorage.getItem("jwt") } });
                 this.seenPost = response.data.seens;
-                console.log(this.seenPost)
+                console.log(this.seenPost);
             } catch (err) {
                 console.log(err);
             }
@@ -131,7 +150,7 @@ export default {
         const user = JSON.parse(localStorage.getItem("user"));
         this.userID = user.UserID;
         this.getAllPost();
-        this.checkRead()
+        this.checkRead();
     },
 };
 </script>
