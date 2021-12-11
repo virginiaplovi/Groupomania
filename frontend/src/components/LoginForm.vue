@@ -32,6 +32,7 @@ export default {
             isSubmitted: false,
         };
     },
+    // Validate the form with vuelidate
     validations: {
         email: {
             required,
@@ -42,6 +43,7 @@ export default {
         },
     },
     methods: {
+        //on submit login an add user and jwt in localStorage
         handleSubmit() {
             this.isSubmitted = true;
             this.$v.$touch();
@@ -83,6 +85,7 @@ export default {
                     .catch((error) => {
                         const codeError = error.message.split("code ")[1];
                         let messageError = "";
+                        // Catch the error from response
                         switch (codeError) {
                             case "401":
                                 messageError = "The password you entered is incorrect. Please try again.";
@@ -91,6 +94,7 @@ export default {
                                 messageError = "The email address that you've entered doesn't match any account.";
                                 break;
                         }
+                        // Display the error to the user
                         Swal.fire({
                             icon: "error",
                             title: "Ops!",

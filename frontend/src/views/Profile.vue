@@ -38,7 +38,7 @@ export default {
         };
     },
     methods: {
-        // Get Product By Id
+        // Get User By Id
         async getUserById() {
             try {
                 const response = await axios.get(`http://localhost:5000/auth/${this.$route.params.id}`, { headers: { Authorization: "Bearer " + localStorage.getItem("jwt") } });
@@ -74,9 +74,6 @@ export default {
     created: function () {
         const user = JSON.parse(localStorage.getItem("user"));
         this.userID = user.UserID;
-        // this.lastName = user.LastName;
-        // this.email = user.Email;
-        // this.createdAt = user.CreatedAt;
 
         this.getUserById();
     },

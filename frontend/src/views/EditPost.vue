@@ -42,6 +42,7 @@ export default {
         };
     },
     methods: {
+        // Get one post and set the message as the input placeholder 
         getOnePost() {
             axios
                 .get(`http://localhost:5000/post/${this.$route.params.id}`, { headers: { "Authorization":"Bearer " + localStorage.getItem("jwt") }})
@@ -66,6 +67,7 @@ export default {
                 timer: 1500,
                 timerProgressBar: true,
             });
+            //Create a formData that contain the file to send with put request
             const formData = new FormData();
             formData.set("image", this.file);
             formData.set("Message", this.newMessage.toString());
@@ -86,11 +88,13 @@ export default {
         },
     },
     created() {
+        //Get the user logged in id from localStorage
         const user = JSON.parse(localStorage.getItem("user"));
         this.userID = user.UserID;
 
         this.getOnePost();
     },
+    //Check if the user logged in is the user that create the post, if not redirect to homepage
     beforeMount() {
         const user = JSON.parse(localStorage.getItem("user"));
         let userLogged = user.UserID;

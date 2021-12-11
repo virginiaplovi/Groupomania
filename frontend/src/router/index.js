@@ -74,6 +74,7 @@ const router = new VueRouter({
 })
 
 // Meta Handling
+//check if not log redirect to login page
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
     if (localStorage.getItem('jwt') == null) {
@@ -89,7 +90,7 @@ router.beforeEach((to, from, next) => {
     next()
   }
 })
-
+//if islog redirect to home page
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.isLog)) {
     if (localStorage.getItem('jwt')) {

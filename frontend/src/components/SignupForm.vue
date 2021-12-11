@@ -81,6 +81,7 @@ export default {
             isSubmitted: false,
         };
     },
+    // Validate the form with vuelidate
     validations: {
         firstName: {
             required,
@@ -102,6 +103,7 @@ export default {
         },
     },
     methods: {
+        //on submit create a new user with unique email
         handleSubmit() {
             this.isSubmitted = true;
             this.$v.$touch();

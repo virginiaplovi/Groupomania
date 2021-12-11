@@ -65,6 +65,7 @@ export default {
         window.addEventListener("scroll", this.handleScroll);
     },
     methods: {
+        //Get all post to display with the for each loop
         async getAllPost() {
             try {
                 const response = await axios.get(`http://localhost:5000/post`, { headers: { Authorization: "Bearer " + localStorage.getItem("jwt") } });
@@ -88,6 +89,7 @@ export default {
                 console.log(err);
             }
         },
+        // Function to scroll to top page
         handleScroll: function () {
             if (this.scTimer) return;
             this.scTimer = setTimeout(() => {
@@ -102,7 +104,7 @@ export default {
                 behavior: "smooth",
             });
         },
-
+        //On change event, mark post as read
         markRead(id, event) {
             const Toast = Swal.mixin({
                 toast: true,
@@ -111,6 +113,7 @@ export default {
                 timer: 1500,
                 timerProgressBar: true,
             });
+            // If checkbox is checked
             if (event.target.checked) {
                 axios
                     .post(
@@ -135,13 +138,16 @@ export default {
                     });
             }
         },
+        // Get all the post read by the user logged in
         async checkRead() {
             try {
                 const response = await axios.get(`http://localhost:5000/seen/auth/${this.userID}`, { headers: { Authorization: "Bearer " + localStorage.getItem("jwt") } });
                 this.seenPost = response.data.seens;
+                // Filter the respons to return the PostID
                 let valObj = this.seenPost.filter(function (elem) {
                     if (elem.UserID) return elem.PostID;
                 });
+                // Push all the PostID in the Array seenPostID
                 for (let i = 0; i < valObj.length; i++) {
                     let seenPostID = valObj[i].PostID                   
                     this.seens.push(seenPostID)
@@ -154,6 +160,7 @@ export default {
         },
     },
     created() {
+        //Get the user logged in id from localStorage
         const user = JSON.parse(localStorage.getItem("user"));
         this.userID = user.UserID;
         this.getAllPost();

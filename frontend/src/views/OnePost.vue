@@ -67,6 +67,7 @@ export default {
                 console.log(err);
             }
         },
+        //On change event, mark post as read
         markRead(id, event) {
             const Toast = Swal.mixin({
                 toast: true,
@@ -75,6 +76,7 @@ export default {
                 timer: 1500,
                 timerProgressBar: true,
             });
+            // If checkbox is checked
             if (event.target.checked) {
                 axios
                     .post(
@@ -99,25 +101,29 @@ export default {
                     });
             }
         },
+        // Get all the post read by the user logged in
         async checkRead() {
             try {
                 const response = await axios.get(`http://localhost:5000/seen/auth/${this.userID}`, { headers: { Authorization: "Bearer " + localStorage.getItem("jwt") } });
                 this.seenPost = response.data.seens;
+                // Filter the respons to return the PostID
                 let valObj = this.seenPost.filter(function (elem) {
                     if (elem.UserID) return elem.PostID;
                 });
+                // Push all the PostID in the Array seenPostID
                 for (let i = 0; i < valObj.length; i++) {
                     let seenPostID = valObj[i].PostID;
                     this.seens.push(seenPostID);
                 }
 
-                console.log(this.seens);
+                //console.log(this.seens); TEST
             } catch (err) {
                 console.log(err);
             }
         },
     },
     created() {
+        //Get the user logged in id from localStorage
         const user = JSON.parse(localStorage.getItem("user"));
         this.userID = user.UserID;
     },

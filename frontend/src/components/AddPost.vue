@@ -50,6 +50,7 @@ export default {
                 timerProgressBar: true,
                 
             });
+            //Create a formData that contain the file to send with post request
             const formData = new FormData();
             formData.set("image", this.file);
             formData.set("UserID", this.userID.toString());
@@ -66,6 +67,7 @@ export default {
         },
     },
     created: function () {
+        //Get the user logged in id from localStorage
         const user = JSON.parse(localStorage.getItem("user"));
         this.userID = user.UserID;
         this.firstName = user.FirstName;

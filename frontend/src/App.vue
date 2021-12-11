@@ -6,7 +6,7 @@
 <script>
 
 export default {
-    
+    // set a title for pages
     watch: {
         $route: {
             handler: (to) => {

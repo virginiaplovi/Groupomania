@@ -32,11 +32,13 @@ export default {
         };
     },
     created: function () {
+        //Get the user logged in id from localStorage
         const user = JSON.parse(localStorage.getItem("user"));
         this.userName = user.FirstName + " " + user.LastName;
         this.userID = user.UserID
     },
     methods: {
+        //on signout clear the local storage and redirect to login page
         signOut() {
             localStorage.clear();
             let timerInterval;
