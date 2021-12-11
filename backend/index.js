@@ -2,6 +2,7 @@
 import express from "express";
 //Import cors
 import cors from "cors";
+
 import path from 'path';
 const __dirname = path.resolve();
 // Import connection MySQL
@@ -10,7 +11,7 @@ import db from "./config/database.js";
 import postRouter from './routes/post.js';
 import userRouter from "./routes/user.js";
 import seenRouter from "./routes/seen.js";
-//...to add userRoutes...
+
 
 //Init express
 const app = express();

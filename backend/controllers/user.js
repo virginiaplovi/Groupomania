@@ -1,3 +1,7 @@
+//Import .env
+import dotenv from 'dotenv'
+dotenv.config()
+
 // Import bcrypt 
 import bcrypt from 'bcrypt';
 
@@ -83,7 +87,7 @@ export const login = (req, res, next) => {
                     //create token
                     const token = jwt.sign(
                         { UserID: user.UserID },
-                        'RANDOM_TOKEN_SECRET',
+                        process.env.USER_TOKEN,
                         { expiresIn: '24h' });
                     res.status(200).json({
                         UserID: user.UserID,
