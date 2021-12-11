@@ -29,8 +29,10 @@ const Post = db.define('post', {
 }, {
     freezeTableName: true
 });
+
+//Associations
 User.hasMany(Post, { foreignKey: 'UserID' });
 Post.belongsTo(User, { foreignKey: 'UserID'});
-//Export model Post
 
+//Export model Post
 export default Post;

@@ -1,4 +1,4 @@
-//Import Post Model
+//Import Models
 import Post from "../models/post.js";
 import User from "../models/user.js";
 import fs from 'fs'

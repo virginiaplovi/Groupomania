@@ -1,11 +1,13 @@
 import multer, { diskStorage } from 'multer';
 
+// MAP 
 const MIME_TYPES = {
   'image/jpg': 'jpg',
   'image/jpeg': 'jpg',
   'image/png': 'png'
 };
 
+// SET STORAGE, file destination, file name and file extension
 const storage = diskStorage({
   destination: (req, file, callback) => {
     callback(null, 'images');

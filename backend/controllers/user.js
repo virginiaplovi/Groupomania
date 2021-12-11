@@ -9,11 +9,11 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 
-// Import User model
+// Import Models
 import User from "../models/user.js"
-// import Post from '../models/post.js';
-// Sign up
 
+
+// Create a new user
 export const signup = (req, res, next) => {
     User.findOne({
         where: {
@@ -23,7 +23,7 @@ export const signup = (req, res, next) => {
         if (user) {
             return res.status(400).json({ error: "This email is already being used" });
         } else {
-            bcrypt.hash(req.body.Password, 10).then(
+            bcrypt.hash(req.body.Password, 10).then(  //salt and hash password
                 (hash) => {
                     const user = new User({
                         Email: req.body.Email,
@@ -62,7 +62,7 @@ export const signup = (req, res, next) => {
     );
 
 };
-
+// User Login
 export const login = (req, res, next) => {
     User.findOne({
         where: {
@@ -114,6 +114,7 @@ export const login = (req, res, next) => {
         }
     );
 }
+
 
 export const getAllUsers = async (req, res, next) => {
     try {

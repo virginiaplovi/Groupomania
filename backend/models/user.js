@@ -39,5 +39,4 @@ const User = db.define('user', {
 
 
 //Export model Post
-
 export default User;
