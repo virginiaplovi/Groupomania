@@ -56,6 +56,7 @@ export default {
             userID: "",
             scTimer: 0,
             scY: 0,
+            noPost: false,
             seenPost: [],
             seens: []
         };
@@ -132,10 +133,6 @@ export default {
                     .catch((error) => {
                         console.log(error);
                     });
-                console.log("do post request with 1 in parameter");
-            } else {
-                ///do delete request
-                console.log("do post request with 0 parameter");
             }
         },
         async checkRead() {
