@@ -24,7 +24,9 @@
                             <button v-if="post.user.UserID == userID" class="btn btn-post" @click="deletePost(post.PostID)">Delete</button>
                         </div>
                         <div class="d-flex align-items-center border-left px-3 likes">
-                            <span class="ml-2"><i class="fas fa-eye"></i> <input type="checkbox" :value="post.PostID" @change="markRead(post.PostID, $event)" /> Mark as read</span>
+                            <span v-if="!seens.includes(post.PostID)"><i class="fas fa-eye mx-2"></i>
+                            <input  type="checkbox" :value="post.PostID" @change="markRead(post.PostID, $event)" /> Mark as read</span>
+                            <span v-else class="text-muted"><i class="fas fa-check-square"></i> Read</span>
                         </div>
                     </div>
                 </div>
@@ -54,8 +56,8 @@ export default {
             userID: "",
             scTimer: 0,
             scY: 0,
-            noPost: false,
             seenPost: [],
+            seens: []
         };
     },
     mounted() {
@@ -140,7 +142,15 @@ export default {
             try {
                 const response = await axios.get(`http://localhost:5000/seen/auth/${this.userID}`, { headers: { Authorization: "Bearer " + localStorage.getItem("jwt") } });
                 this.seenPost = response.data.seens;
-                console.log(this.seenPost);
+                let valObj = this.seenPost.filter(function (elem) {
+                    if (elem.UserID) return elem.PostID;
+                });
+                for (let i = 0; i < valObj.length; i++) {
+                    let seenPostID = valObj[i].PostID                   
+                    this.seens.push(seenPostID)
+                }
+                
+                console.log(this.seens)
             } catch (err) {
                 console.log(err);
             }
